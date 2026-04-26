@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm Nang Quân Sự</title>
+    <link rel="icon" href="logoo.png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1b4332; 
+            --accent: #d4a373;
+            --shopee: #ee4d2d;
+            --bg: #f4f7f6;
+            --female: #e84393;
+            --male: #0984e3;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); padding: 10px; color: #333; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        header { 
+            background: linear-gradient(135deg, var(--primary), #2d6a4f); 
+            color: white; padding: 30px 15px; border-radius: 15px; text-align: center; 
+            margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-video { 
+            display: inline-block; background: #0088cc; color: white; 
+            padding: 12px 25px; border-radius: 25px; text-decoration: none; 
+            margin-top: 15px; font-weight: bold; font-size: 0.9rem; transition: 0.3s;
+        }
+
+        section { background: white; padding: 20px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        h2 { color: var(--primary); margin-bottom: 15px; border-left: 5px solid var(--accent); padding-left: 10px; font-size: 1.2rem; text-transform: uppercase; }
+
+        /* Tables Style */
+        .table-wrapper { overflow-x: auto; border-radius: 10px; border: 1px solid #eee; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; background: white; font-size: 0.9rem; }
+        th, td { border: 1px solid #edf2f7; padding: 12px; text-align: left; }
+        th { background: #f8f9fa; color: var(--primary); font-weight: bold; }
+        tr:nth-child(even) { background-color: #f9fdfb; }
+        .highlight { background-color: #fff9db !important; font-weight: bold; }
+
+        /* Shopee Section */
+        .category-header { font-size: 1.4rem; font-weight: bold; margin: 35px 0 15px; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid #ddd; }
+        .male-header { color: var(--male); border-color: var(--male); }
+        .female-header { color: var(--female); border-color: var(--female); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .product-card { 
+            border: 1px solid #eee; padding: 18px; border-radius: 12px; 
+            text-align: center; display: flex; flex-direction: column; justify-content: space-between;
+            transition: 0.3s; background: #fff;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-color: var(--shopee); }
+        .product-name { font-weight: bold; font-size: 1rem; color: #222; margin-bottom: 8px; }
+        .product-desc { font-size: 0.8rem; color: #777; margin-bottom: 15px; height: 35px; overflow: hidden; }
+        .buy-btn { 
+            background: var(--shopee); color: white; text-decoration: none; 
+            padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            td, th { padding: 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>CẨM NANG QUÂN SỰ</h1>
+        <p>Thông tin đầy đủ - Hành trang vững vàng 🎓DTU Official Community🗂</p>
+        <a href="https://t.me/Dai_Hoc_Duy_Tan/6126" class="btn-video" target="_blank">
+            <i class="fab fa-telegram"></i> XEM VIDEO THỰC HÀNH QUÂN SỰ
+        </a>
+    </header>
+
+    <section>
+        <h2><i class="fas fa-info-circle"></i> 1. Lưu ý khi đi quân sự (GDQP-AN)</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>Nhóm</th><th>Mục</th><th>Nội dung</th><th>Ghi chú</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td rowspan="2">Thời gian</td><td>Nhập học</td><td>6h45 ngày đầu</td><td>Theo kế hoạch</td></tr>
+                    <tr><td>Lý thuyết</td><td>Học thứ 2-7, cả ngày, đi đúng hoặc trước giờ học</td><td></td></tr>
+                    <tr><td rowspan="1">Hình thức</td><td>Thực hành</td><td>Ăn ở tập trung 2 tuần</td><td>Bắt buộc</td></tr>
+                    <tr><td rowspan="2">Địa điểm</td><td>Cơ sở 1</td><td>TT GDQPAN (122 Hoàng Minh Thảo)</td><td></td></tr>
+                    <tr><td>Cơ sở 2</td><td>44 Dũng Sĩ Thanh Khê</td><td></td></tr>
+                    <tr><td>Giấy tờ</td><td>Bắt buộc</td><td>Thẻ SV hoặc giấy tờ có ảnh</td><td></td></tr>
+                    <tr><td rowspan="2">Trang phục</td><td>Lý thuyết</td><td>Lịch sự</td><td>Nữ không mặc váy</td></tr>
+                    <tr><td>Thực hành</td><td>Giày thể thao/bata, đầu tóc gọn gàng, không nhuộm</td><td>Bắt buộc</td></tr>
+                    <tr><td rowspan="2">Chi phí</td><td>Tiền ăn</td><td>70.000đ/ngày (3 bữa)</td><td></td></tr>
+                    <tr><td>Khác</td><td>120.000đ/khóa</td><td>Điện nước, tài liệu</td></tr>
+                    <tr><td>Thanh toán</td><td>Nộp tiền</td><td>Nộp ngày đầu tại nơi học thực hành</td><td></td></tr>
+                    <tr><td>Sinh hoạt</td><td>Được cấp</td><td>1 Balo, 2 quân, 2 áo, 1 mũ, 1 chăn, 1 màn, 1 chiếu, 1 gối, 1 thắt lưng (nam)</td><td></td></tr>
+                    <tr><td rowspan="3">Nội quy</td><td>Xe cộ</td><td>Không mang xe</td><td></td></tr>
+                    <tr><td>Hành lý</td><td>Không mang vali lớn</td><td></td></tr>
+                    <tr><td>Thiết bị</td><td>Không mang đồ điện (quạt, máy sấy...) (có đem dùng cất kỹ)</td><td></td></tr>
+                    <tr><td rowspan="2">Hành lý</td><td>Quần áo</td><td>3 bộ ngắn 2 bộ dài (đồ ngủ)</td><td>Gọn nhẹ</td></tr>
+                    <tr><td>Giày dép</td><td>Dép đi hằng ngày</td><td></td></tr>
+                    <tr><td>Cá nhân</td><td>Vệ sinh</td><td>Bàn chải, kem đánh răng; Dầu gội, sữa tắm, Skincare, ddvs, lăn nách, xịt khử mùi, tất(vớ), nội y và đồ sinh hoạt dùng một lần, dù(ô), băng y tế, băng hằng tháng</td><td></td></tr>
+                    <tr><td rowspan="2">Sinh hoạt</td><td>Giặt giũ</td><td>Bột giặt</td><td></td></tr>
+                    <tr><td>Tiện ích</td><td>Móc treo đồ; Bình nước cầm tay, quạt cầm tay</td><td></td></tr>
+                    <tr><td>Ăn uống</td><td>Đồ ăn thêm</td><td>Rong biển, bánh kẹo, ....</td><td>Mang ít</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-clock"></i> 2. 11 Chế độ trong ngày</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th style="text-align: center;">STT</th><th>Thời gian</th><th>Mục đích</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td align="center">1</td><td>5h (hè), 5h15 (đông)</td><td>Thức dậy, tập thể dục</td></tr>
+                    <tr><td align="center">2</td><td>6h00</td><td>Ăn sáng</td></tr>
+                    <tr class="highlight"><td align="center">3</td><td>7h00</td><td>Đi học</td></tr>
+                    <tr><td align="center">4</td><td>11h00</td><td>Đi ăn</td></tr>
+                    <tr><td align="center">5</td><td>12h00</td><td>Ngủ trưa</td></tr>
+                    <tr class="highlight"><td align="center">6</td><td>13h00</td><td>Đi học</td></tr>
+                    <tr><td align="center">7</td><td>16h30</td><td>Vệ sinh cá nhân, hoạt động thể thao</td></tr>
+                    <tr><td align="center">8</td><td>18h00</td><td>Ăn tối</td></tr>
+                    <tr><td align="center">9</td><td>19h00</td><td>Sinh hoạt đại đội</td></tr>
+                    <tr><td align="center">10</td><td>21h00</td><td>Kiểm tra quân số</td></tr>
+                    <tr><td align="center">11</td><td>22h00</td><td>Ngủ</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-calendar-week"></i> 3. Chế độ trong tuần</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th style="text-align: center;">STT</th><th>Mục đích</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td align="center">1</td><td>Chào cờ, duyệt đội ngũ</td></tr>
+                    <tr><td align="center">2</td><td>Thông báo chính trị</td></tr>
+                    <tr><td align="center">3</td><td>Tổng dọn vệ sinh doanh trại</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <h3 class="category-header female-header"><i class="fas fa-venus"></i> DÀNH CHO NỮ </h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <div><div class="product-name">Băng vệ sinh</div><div class="product-desc">Loại hằng tháng & hằng ngày</div></div>
+            <a href="https://s.shopee.vn/6VKEI41ryp" class="buy-btn" target="_blank">MUA</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Khăn ướt cho nữ</div><div class="product-desc">Tiện lợi, vệ sinh nhanh gọn</div></div>
+            <a href="https://s.shopee.vn/6px4gtnNpk" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Kem Chống Nắng</div><div class="product-desc">Bảo vệ da dưới nắng thao trường</div></div>
+            <a href="https://s.shopee.vn/80925Bb2np" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Sữa Tắm/Gội Dùng 1 Lần</div><div class="product-desc">Dạng gói siêu tiết kiệm diện tích</div></div>
+            <a href="https://s.shopee.vn/9Uxps2s4Sx" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Dầu Gội Khô</div><div class="product-desc">Cứu tinh ngày bận trực gác</div></div>
+            <a href="https://s.shopee.vn/40ctJz4AO5" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Xịt khóa nền</div><div class="product-desc">Hỗ trợ dưỡng ẩm lâu trôi</div></div>
+            <a href="https://s.shopee.vn/6fdeUx8D6e" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+    </div>
+
+    <h3 class="category-header male-header"><i class="fas fa-mars"></i> DÀNH CHO NAM </h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <div><div class="product-name">Lăn Khử Mùi</div><div class="product-desc">Giữ cơ thể thơm tho sau giờ tập</div></div>
+            <a href="https://s.shopee.vn/901ZHM12Mq" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Dao Cạo Râu</div><div class="product-desc">Gọn nhẹ, dễ mang theo</div></div>
+            <a href="https://s.shopee.vn/9UxpsL2GGh" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Tất (Vớ)</div><div class="product-desc">Giảm ma sát khi đi giày</div></div>
+            <a href="https://s.shopee.vn/gMRMBdZjP" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Sữa Tắm Nam 3-in-1</div><div class="product-desc">Gội, rửa mặt, tắm trong 1 bước</div></div>
+            <a href="https://s.shopee.vn/9AKzTtTo8a" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+    </div>
+
+    <h3 class="category-header" style="color: #444;"><i class="fas fa-box-open"></i> ĐỒ DÙNG CHUNG THIẾT YẾU</h3>
+    <div class="product-grid">
+                <div class="product-card">
+            <div><div class="product-name">Xịt Khử Mùi Giày</div><div class="product-desc">Rất cần thiết trong phòng tập thể</div></div>
+            <a href="https://s.shopee.vn/8V5IglrhxD" class="buy-btn" target="_blank">SHOPEE</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Quạt Mini Tích Điện</div><div class="product-desc">Giải nhiệt đêm ngủ nóng</div></div>
+            <a href="https://s.shopee.vn/2Vo5XrwGLF" class="buy-btn" target="_blank">MUA NGAY</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Bình Nước 600ml</div><div class="product-desc">Phải có khi ra thao trường</div></div>
+            <a href="https://s.shopee.vn/7VClV7v8UU" class="buy-btn" target="_blank">MUA NGAY</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Móc Treo Đồ (10 cái)</div><div class="product-desc">Phơi quân phục hằng ngày</div></div>
+            <a href="https://s.shopee.vn/9pagHTidyP" class="buy-btn" target="_blank">MUA NGAY</a>
+        </div>
+        <div class="product-card">
+            <div><div class="product-name">Ổ Cắm Điện Nối Dài</div><div class="product-desc">Dùng chung cho cả phòng</div></div>
+            <a href="https://s.shopee.vn/1VvYMIxoBG" class="buy-btn" target="_blank">MUA NGAY</a>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 40px 0; color: #888; font-size: 0.85rem;">
+        <p>© https://t.me/Dai_Hoc_Duy_Tan - Chúc các bạn có kỳ quân sự rực rỡ!</p>
+    </footer>
+</div>
+<script>
+    // 1. Chống chuột phải
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // 2. Chống phím tắt F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { return false; } // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U (Xem code)
+        if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // Ctrl+S (Lưu trang)
+    };
+
+    // 3. Vô hiệu hóa phím tắt trên Mac (Cmd+Opt+I, v.v.)
+    document.addEventListener('keydown', function(e) {
+        if (e.metaKey && e.altKey && e.keyCode == 73) { e.preventDefault(); }
+    });
+
+    // 4. Debugger loop (Tự động đứng trang nếu mở Console)
+    setInterval(function() {
+        check();
+    }, 1000);
+    var check = function() {
+        function doCheck(a) {
+            if (("" + a / a)["length"] !== 1 || a % 20 === 0) {
+                (function() {}["constructor"]("debugger")());
+            } else {
+                (function() {}["constructor"]("debugger")());
+            }
+            doCheck(++a);
+        }
+        try { doCheck(0); } catch (err) {}
+    };
+</script>
+</body>
+</html>
