@@ -9,107 +9,60 @@
     <style>
         :root { --primary-color: #d90429; --bg: #f4f7f6; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); display: flex; justify-content: center; padding: 10px; box-sizing: border-box; }
-        
-        .container { 
-            width: 100%; 
-            max-width: 1300px; 
-            background: #fff; 
-            padding: 15px; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            display: flex; 
-            flex-direction: column; 
-            height: 96vh; 
-            box-sizing: border-box; 
-        }
-
+        .container { width: 100%; max-width: 1300px; background: #fff; padding: 15px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; height: 96vh; box-sizing: border-box; }
         h1 { color: var(--primary-color); text-align: center; font-size: 1.1rem; margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        
-        /* Search Box Wrapper */
         .search-area { display: flex; gap: 8px; margin-bottom: 15px; align-items: center; }
-        
         .input-group { position: relative; flex: 1; display: flex; align-items: center; }
-        
-        .input-tag { 
-            background: #eee; color: var(--primary-color); font-weight: bold; 
-            height: 45px; padding: 0 12px; display: flex; align-items: center; 
-            border: 1px solid #ccc; border-right: none; border-radius: 8px 0 0 8px;
-            font-size: 14px;
-        }
-
-        input { 
-            flex: 1; height: 45px; padding: 0 60px 0 12px; 
-            border: 1px solid #ccc; border-radius: 0 8px 8px 0; 
-            outline: none; font-size: 16px; width: 100%; box-sizing: border-box;
-        }
-
-        /* Số đếm bên trong ô tìm kiếm */
-        .inner-count { 
-            position: absolute; right: 12px; color: var(--primary-color); 
-            font-weight: 800; font-size: 15px; pointer-events: none; 
-        }
-
-        .btn-cap { 
-            background: #6c5ce7; color: white; border: none; 
-            height: 45px; padding: 0 15px; border-radius: 8px; 
-            cursor: pointer; font-weight: bold; white-space: nowrap;
-            transition: 0.3s;
-        }
-        .btn-cap:active { transform: scale(0.95); }
-
-        /* Bảng dữ liệu */
+        .input-tag { background: #eee; color: var(--primary-color); font-weight: bold; height: 45px; padding: 0 12px; display: flex; align-items: center; border: 1px solid #ccc; border-right: none; border-radius: 8px 0 0 8px; font-size: 14px; }
+        input { flex: 1; height: 45px; padding: 0 60px 0 12px; border: 1px solid #ccc; border-radius: 0 8px 8px 0; outline: none; font-size: 16px; width: 100%; box-sizing: border-box; }
+        .inner-count { position: absolute; right: 12px; color: var(--primary-color); font-weight: 800; font-size: 15px; pointer-events: none; }
+        .btn-cap { background: #6c5ce7; color: white; border: none; height: 45px; padding: 0 15px; border-radius: 8px; cursor: pointer; font-weight: bold; white-space: nowrap; }
         .table-box { flex: 1; overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fff; }
         table { width: 100%; border-collapse: collapse; min-width: 900px; }
         th { background: var(--primary-color); color: white; position: sticky; top: 0; padding: 12px 8px; font-size: 12px; z-index: 10; }
-        td { padding: 10px 5px; border-bottom: 1px solid #eee; text-align: center; font-size: 13.5px; }
+        td { padding: 10px 5px; border-bottom: 1px solid #dee2e6; border-right: 1px solid #dee2e6; text-align: center; font-size: 13.5px; }
         tr:nth-child(even) { background: #fafafa; }
-        
-        .mon-col { text-align: left; padding-left: 10px; }
-        .lop-col { font-weight: bold; color: #000; }
-
-        /* Responsive cho Mobile */
-        @media (max-width: 600px) {
-            .container { padding: 10px; height: 98vh; }
-            h1 { font-size: 0.9rem; }
-            input { font-size: 14px; }
-            .btn-cap { padding: 0 10px; font-size: 12px; }
-            .input-tag { padding: 0 8px; font-size: 12px; }
-            td { font-size: 12px; padding: 8px 3px; }
-        }
+        #exportHeader, #exportFooter { display: none; text-align: center; width: 100%; }
+        .capturing #exportHeader, .capturing #exportFooter { display: block; }
+        @media (max-width: 600px) { .container { padding: 10px; height: 98vh; } h1 { font-size: 0.9rem; } input { font-size: 14px; } td { font-size: 12px; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1 id="title">TRA CỨU LỊCH THI GDTC</h1>
-    
     <div class="search-area">
         <div class="input-group">
             <div class="input-tag" id="tagMon">0</div>
-            <input type="text" id="inp" placeholder="Nhập lớp (VD: ES 101 DR, ES 101...)" oninput="search()">
+            <input type="text" id="inp" 
+                   placeholder="Nhập lớp thi..." 
+                   oninput="search()" 
+                   autocomplete="off" 
+                   autocorrect="off" 
+                   autocapitalize="off" 
+                   spellcheck="false">
             <div class="inner-count" id="totalCount">0</div>
         </div>
-        <button class="btn-cap" onclick="chup()">📸 ẢNH</button>
+        <button class="btn-cap" onclick="doCapture()">📸 ẢNH</button>
     </div>
 
-    <div class="table-box">
-        <div id="area" style="background:white; padding:5px;">
+    <div class="table-box" id="tableWrapper">
+        <div id="captureArea" style="background:white; padding:10px;">
+            <div id="exportHeader">
+                <h2 id="exportTitleText" style="color:var(--primary-color); margin:5px 0; text-transform:uppercase; font-size:18px;"></h2>
+                <p id="exportTimeText" style="font-style:italic; color:#666; font-size:12px; margin-bottom:15px;"></p>
+            </div>
             <table>
                 <thead>
                     <tr>
-                        <th width="35">TT</th>
-                        <th width="90">NGÀY THI</th>
-                        <th width="80">GIỜ THI</th>
-                        <th>MÔN THI</th>
-                        <th width="120">LỚP THI</th>
-                        <th width="160">GIẢNG VIÊN</th>
-                        <th width="180">ĐỊA ĐIỂM</th>
+                        <th width="35">TT</th><th width="95">NGÀY THI</th><th width="85">GIỜ THI</th><th>MÔN THI</th><th width="130">LỚP THI</th><th width="160">GIẢNG VIÊN</th><th width="190">ĐỊA ĐIỂM</th>
                     </tr>
                 </thead>
-                <tbody id="out">
-                    <tr><td colspan="7">Đang tải lịch thi...</td></tr>
-                </tbody>
+                <tbody id="out"><tr><td colspan="7">Đang kết nối dữ liệu...</td></tr></tbody>
             </table>
+            <div id="exportFooter" style="margin-top:15px; font-size:12px; color:red; border-top:1px solid #eee; padding-top:10px; font-weight:bold;">
+                * Nội dung chỉ mang tính chất THAM KHẢO  *
+            </div>
         </div>
     </div>
 </div>
@@ -117,6 +70,12 @@
 <script>
     const GITHUB_URL = 'https://raw.githubusercontent.com/adminweba/crack/main/LICH%20THI%20GDTC.xls';
     let dataStore = [];
+
+    // Tự động xóa sạch ô input mỗi khi load trang để đảm bảo không lưu lại vết
+    window.onload = () => {
+        document.getElementById('inp').value = "";
+        init();
+    };
 
     async function init() {
         try {
@@ -134,28 +93,16 @@
             raw.forEach(row => {
                 let tt = parseInt(row[0]);
                 if (!isNaN(tt) && row.length > 5) {
-                    dataStore.push({
-                        tt: row[0],
-                        ngay: row[2],
-                        gio: row[3],
-                        mon: row[7], 
-                        lop: row[8],
-                        gv: row[10],
-                        dd: row[11]
-                    });
+                    dataStore.push({ tt: row[0], ngay: row[2], gio: row[3], mon: row[7], lop: row[8], gv: row[10], dd: row[11] });
                 }
             });
             search();
-        } catch (e) {
-            document.getElementById('out').innerHTML = '<tr><td colspan="7" style="color:red">Lỗi kết nối dữ liệu!</td></tr>';
-        }
+        } catch (e) { document.getElementById('out').innerHTML = '<tr><td colspan="7">Lỗi tải dữ liệu.</td></tr>'; }
     }
 
     function search() {
         const val = document.getElementById('inp').value.trim().toUpperCase();
         const words = val.split(',').map(w => w.trim()).filter(w => w);
-        
-        // Cập nhật số lượng từ khóa tìm kiếm vào ô xám bên trái
         document.getElementById('tagMon').innerText = words.length;
 
         const filtered = dataStore.filter(r => {
@@ -168,16 +115,14 @@
                 <td>${r.tt}</td>
                 <td>${formatNgay(r.ngay)}</td>
                 <td>${r.gio}</td>
-                <td class="mon-col">${r.mon}</td>
-                <td class="lop-col">${r.lop}</td>
+                <td style="text-align:left; padding-left:10px;">${r.mon}</td>
+                <td style="font-weight:bold;">${r.lop}</td>
                 <td>${r.gv}</td>
                 <td>${r.dd}</td>
             </tr>
         `).join('');
         
         document.getElementById('out').innerHTML = html || '<tr><td colspan="7">Không tìm thấy dữ liệu</td></tr>';
-        
-        // Cập nhật tổng số dòng tìm thấy vào bên trong ô input (bên phải)
         document.getElementById('totalCount').innerText = filtered.length;
     }
 
@@ -189,21 +134,26 @@
         return v;
     }
 
-    function chup() {
+    function doCapture() {
         const btn = document.querySelector('.btn-cap');
-        btn.innerText = "CHỜ...";
-        html2canvas(document.getElementById('area')).then(canvas => {
+        const wrapper = document.getElementById('tableWrapper');
+        const now = new Date();
+        document.getElementById('exportTitleText').innerText = document.getElementById('title').innerText;
+        document.getElementById('exportTimeText').innerText = `Tra cứu lúc: ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')} - ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+        wrapper.classList.add('capturing');
+        btn.innerText = "ĐANG CHỤP...";
+
+        html2canvas(document.getElementById('captureArea'), { scale: 2, useCORS: true }).then(canvas => {
+            wrapper.classList.remove('capturing');
             canvas.toBlob(blob => {
                 const item = new ClipboardItem({ "image/png": blob });
                 navigator.clipboard.write([item]).then(() => {
-                    btn.innerText = "OK!";
+                    btn.innerText = "✅ ĐÃ COPY";
                     setTimeout(() => btn.innerText = "📸 ẢNH", 1500);
                 });
             });
         });
     }
-
-    init();
 </script>
 </body>
 </html>
