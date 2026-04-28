@@ -9,22 +9,52 @@
     <style>
         :root { --primary-color: #d90429; --bg: #f4f7f6; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); display: flex; justify-content: center; padding: 10px; box-sizing: border-box; }
-        .container { width: 100%; max-width: 1300px; background: #fff; padding: 15px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; height: 96vh; box-sizing: border-box; }
+        
+        .container { width: 100%; max-width: 1300px; background: #fff; padding: 15px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; height: 96vh; box-sizing: border-box; overflow-x: hidden; }
+        
         h1 { color: var(--primary-color); text-align: center; font-size: 1.1rem; margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .search-area { display: flex; gap: 8px; margin-bottom: 15px; align-items: center; }
-        .input-group { position: relative; flex: 1; display: flex; align-items: center; }
+        
+        /* Tối ưu khu vực tìm kiếm và nút bấm trên Mobile */
+        .search-area { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; align-items: center; }
+        
+        .input-group { position: relative; flex: 1 1 100%; display: flex; align-items: center; }
+        
+        .btn-group { display: flex; gap: 8px; width: 100%; justify-content: space-between; }
+        .btn-group button { flex: 1; height: 40px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; color: white; font-size: 13px; }
+
         .input-tag { background: #eee; color: var(--primary-color); font-weight: bold; height: 45px; padding: 0 12px; display: flex; align-items: center; border: 1px solid #ccc; border-right: none; border-radius: 8px 0 0 8px; font-size: 14px; }
         input { flex: 1; height: 45px; padding: 0 60px 0 12px; border: 1px solid #ccc; border-radius: 0 8px 8px 0; outline: none; font-size: 16px; width: 100%; box-sizing: border-box; }
         .inner-count { position: absolute; right: 12px; color: var(--primary-color); font-weight: 800; font-size: 15px; pointer-events: none; }
-        .btn-cap { background: #6c5ce7; color: white; border: none; height: 45px; padding: 0 15px; border-radius: 8px; cursor: pointer; font-weight: bold; white-space: nowrap; }
-        .table-box { flex: 1; overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fff; }
+        
+        .table-box { flex: 1; overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fff; width: 100%; }
+        
         table { width: 100%; border-collapse: collapse; min-width: 900px; }
         th { background: var(--primary-color); color: white; position: sticky; top: 0; padding: 12px 8px; font-size: 12px; z-index: 10; }
-        td { padding: 10px 5px; border-bottom: 1px solid #dee2e6; border-right: 1px solid #dee2e6; text-align: center; font-size: 13.5px; }
+        td { padding: 10px 5px; border-bottom: 1px solid #dee2e6; border-right: 1px solid #dee2e6; text-align: center; font-size: 13.5px; word-wrap: break-word; }
         tr:nth-child(even) { background: #fafafa; }
+
+        /* CHẾ ĐỘ GỌN: Ép 100% màn hình */
+        .hide-mon table { table-layout: fixed !important; min-width: 100% !important; width: 100% !important; }
+        .hide-mon th:nth-child(4), .hide-mon td:nth-child(4) { display: none; }
+        
+        /* Tỷ lệ các cột khi gọn (Tổng 100%) */
+        .hide-mon th:nth-child(1) { width: 10%; } /* TT */
+        .hide-mon th:nth-child(2) { width: 22%; } /* NGÀY */
+        .hide-mon th:nth-child(3) { width: 18%; } /* GIỜ */
+        .hide-mon th:nth-child(5) { width: 15%; } /* LỚP */
+        .hide-mon th:nth-child(6) { width: 17%; } /* GV */
+        .hide-mon th:nth-child(7) { width: 18%; } /* ĐỊA ĐIỂM */
+
+        .hide-mon td { font-size: 11px !important; white-space: normal !important; word-break: break-word; padding: 8px 2px !important; }
+
         #exportHeader, #exportFooter { display: none; text-align: center; width: 100%; }
         .capturing #exportHeader, .capturing #exportFooter { display: block; }
-        @media (max-width: 600px) { .container { padding: 10px; height: 98vh; } h1 { font-size: 0.9rem; } input { font-size: 14px; } td { font-size: 12px; } }
+
+        @media (max-width: 600px) { 
+            .container { padding: 10px; height: 98vh; } 
+            h1 { font-size: 0.9rem; }
+            .input-group { flex: 1 1 100%; }
+        }
     </style>
 </head>
 <body>
@@ -34,17 +64,14 @@
     <div class="search-area">
         <div class="input-group">
             <div class="input-tag" id="tagMon">0</div>
-            <input type="text" id="inp" 
-                   placeholder="Nhập lớp thi..." 
-                   oninput="search()" 
-                   autocomplete="off" 
-                   autocorrect="off" 
-                   autocapitalize="off" 
-                   spellcheck="false">
+            <input type="text" id="inp" placeholder="Nhập lớp thi..." oninput="search()" autocomplete="off">
             <div class="inner-count" id="totalCount">0</div>
         </div>
-        <button class="lichthi.html" style="margin-left: auto; height: 40px; background: #ea8c8c;" onclick="window.location.href='lichthi.html'">KTHP</button>
-        <button class="btn-cap" onclick="doCapture()">📸 ẢNH</button>
+        <div class="btn-group">
+            <button style="background: #ea8c8c;" onclick="window.location.href='lichthi.html'">KTHP</button>
+            <button id="btnGon" style="background: #f39c12;" onclick="toggleMonThi()">GỌN</button>
+            <button style="background: #6c5ce7;" onclick="doCapture()" id="btnCap">📸 ẢNH</button>
+        </div>
     </div>
 
     <div class="table-box" id="tableWrapper">
@@ -72,7 +99,6 @@
     const GITHUB_URL = 'https://raw.githubusercontent.com/adminweba/crack/main/LICH%20THI%20GDTC.xls';
     let dataStore = [];
 
-    // Tự động xóa sạch ô input mỗi khi load trang để đảm bảo không lưu lại vết
     window.onload = () => {
         document.getElementById('inp').value = "";
         init();
@@ -116,7 +142,7 @@
                 <td>${r.tt}</td>
                 <td>${formatNgay(r.ngay)}</td>
                 <td>${r.gio}</td>
-                <td style="text-align:left; padding-left:10px;">${r.mon}</td>
+                <td style="text-align:left;">${r.mon}</td>
                 <td style="font-weight:bold;">${r.lop}</td>
                 <td>${r.gv}</td>
                 <td>${r.dd}</td>
@@ -135,8 +161,24 @@
         return v;
     }
 
+    function toggleMonThi() {
+        const tableWrapper = document.getElementById('tableWrapper');
+        const btn = document.getElementById('btnGon');
+        tableWrapper.classList.toggle('hide-mon');
+        
+        if (tableWrapper.classList.contains('hide-mon')) {
+            btn.innerText = "HIỆN MÔN";
+            btn.style.background = "#27ae60";
+            tableWrapper.style.overflowX = "hidden";
+        } else {
+            btn.innerText = "GỌN";
+            btn.style.background = "#f39c12";
+            tableWrapper.style.overflowX = "auto";
+        }
+    }
+
     function doCapture() {
-        const btn = document.querySelector('.btn-cap');
+        const btn = document.getElementById('btnCap');
         const wrapper = document.getElementById('tableWrapper');
         const now = new Date();
         document.getElementById('exportTitleText').innerText = document.getElementById('title').innerText;
