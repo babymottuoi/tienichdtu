@@ -54,7 +54,6 @@
         <div style="background:#f9f9f9; padding:15px; border-radius:15px; border:2px dashed #1a73e8; cursor:pointer" onclick="copyInfo()">
             <p>User: <b id="out-acc" style="color:#1a73e8">...</b></p>
             <p>Pass: <b id="out-pass" style="color:#1a73e8">...</b></p>
-            <small>(Bấm vào đây để copy)</small>
         </div>
     </div>
 </div>
@@ -138,11 +137,6 @@
             requestAnimationFrame(updateClock);
         };
         updateClock();
-    }
-
-    function copyInfo() {
-        const text = `Acc: ${document.getElementById('out-acc').innerText} | Pass: ${document.getElementById('out-pass').innerText}`;
-        navigator.clipboard.writeText(text).then(() => alert("✅ Đã sao chép tài khoản!"));
     }
 </script>
 </body>
