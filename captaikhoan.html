@@ -7,31 +7,31 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .container { background: #fff; padding: 25px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 380px; text-align: center; margin: 15px; position: relative; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.1s; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; }
-        .btn:active { transform: scale(0.95); opacity: 0.8; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+        body { font-family: 'Inter', sans-serif; background: #fff; margin: 0; padding: 15px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+        .container { background: #fff; width: 100%; max-width: 380px; text-align: center; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; }
+        .btn:active { transform: scale(0.95); }
         .btn-primary { background: #1a73e8; color: white; }
         .btn-shopee { background: #ee4d2d; color: white; }
         .btn-verify { background: #202124; color: white; }
         .btn-verify:disabled { background: #dadce0; cursor: not-allowed; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #f1f3f4; border-radius: 10px; font-size: 16px; text-align: center; outline: none; }
         input:focus { border-color: #1a73e8; }
-        .timer-box { font-size: 45px; font-weight: 900; color: #d93025; margin: 10px 0; font-family: 'Courier New', monospace; }
+        .timer-box { font-size: 40px; font-weight: 900; color: #d93025; margin: 10px 0; font-family: monospace; }
         .hidden { display: none !important; }
-        .captcha-box { background: #fdfdfd; padding: 15px; border-radius: 15px; margin: 10px 0; border: 1px solid #eee; }
-        #captchaCanvas { border-radius: 10px; background: #fff; cursor: pointer; }
+        .captcha-box { background: #fdfdfd; padding: 10px; border-radius: 15px; border: 1px solid #eee; margin: 10px 0; }
+        canvas { border-radius: 10px; width: 100%; max-width: 220px; height: auto; cursor: pointer; }
         .loader { width: 20px; height: 20px; border: 3px solid #FFF; border-bottom-color: transparent; border-radius: 50%; display: inline-block; animation: rotation 0.6s linear infinite; }
-        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="ui-start">
-        <p id="greeting" style="font-weight: bold; color: #1a73e8; margin-bottom: 5px;"></p>
-        <h2 style="margin: 0 0 15px 0;">Nhận tài khoản</h2>
+        <p id="greeting" style="font-weight: bold; color: #1a73e8;"></p>
+        <h2>Nhận tài khoản</h2>
         <button class="btn btn-primary" id="btn-start" onclick="initTask()">
             <span id="txt-start">BẮT ĐẦU</span>
             <div id="load-start" class="loader hidden"></div>
@@ -44,23 +44,28 @@
             <canvas id="captchaCanvas" width="220" height="80" onclick="drawCaptcha()"></canvas>
             <input type="text" id="captcha-input" placeholder="Mã Captcha" autocomplete="off">
         </div>
-        <input type="text" id="code-input" placeholder="Nhập 2 từ đầu tên sản phẩm" autocomplete="off">
+        <input type="text" id="code-input" placeholder="Nhập 2 từ đầu tên SP" autocomplete="off">
         <button class="btn btn-verify" id="btn-verify" onclick="confirmTask()" disabled>XÁC NHẬN (60S)</button>
     </div>
 
     <div id="ui-result" class="hidden">
-        <h3 style="color: #2ecc71; margin:0">THÀNH CÔNG</h3>
+        <h3 style="color: #2ecc71;">THÀNH CÔNG</h3>
         <div class="timer-box" id="clock">30:00</div>
         <div style="background:#f9f9f9; padding:15px; border-radius:15px; border:2px dashed #1a73e8; cursor:pointer" onclick="copyInfo()">
-            <p style="margin:5px 0">User: <b id="out-acc" style="color:#1a73e8">...</b></p>
-            <p style="margin:5px 0">Pass: <b id="out-pass" style="color:#1a73e8">...</b></p>
+            <p>User: <b id="out-acc" style="color:#1a73e8">...</b></p>
+            <p>Pass: <b id="out-pass" style="color:#1a73e8">...</b></p>
+            <small>(Bấm vào đây để copy)</small>
         </div>
-        <button class="btn btn-primary" onclick="location.href = 'login.html'">Đăng Nhập</button>
     </div>
 </div>
 
 <script>
     const API = "https://script.google.com/macros/s/AKfycbwiqsWzUBerlJq5LPorXdqwT8sELBg7phMjI5F7RCwhE2urBh6bRK5m4bkRirnH0ZdZFw/exec";
+    
+    // Bảo mật: Chặn F12 & Chuột phải
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false; };
+
     const hour = new Date().getHours();
     document.getElementById('greeting').innerText = hour < 12 ? "Chào buổi sáng! ☀️" : hour < 18 ? "Chào buổi chiều! ⛅" : "Chào buổi tối! 🌙";
 
@@ -78,12 +83,8 @@
             captchaVal += c;
             ctx.font = "bold 38px Arial";
             ctx.fillStyle = "#333";
-            ctx.save(); ctx.translate(40 * i + 30, 50); ctx.rotate((Math.random() - 0.5) * 0.5);
+            ctx.save(); ctx.translate(40 * i + 30, 50); ctx.rotate((Math.random() - 0.5) * 0.3);
             ctx.fillText(c, 0, 0); ctx.restore();
-        }
-        for (let i = 0; i < 15; i++) {
-            ctx.strokeStyle = "#ccc"; ctx.beginPath(); ctx.moveTo(Math.random()*220, Math.random()*80);
-            ctx.lineTo(Math.random()*220, Math.random()*80); ctx.stroke();
         }
     }
 
@@ -107,30 +108,21 @@
         }, 1000);
     }
 
-// (Trong file index.html, phần hàm confirmTask xử lý như sau)
-function confirmTask() {
-    const uCap = document.getElementById('captcha-input').value.trim().toUpperCase();
-    const uCode = document.getElementById('code-input').value.trim().toUpperCase();
-    
-    if (uCap !== captchaVal) { alert("Sai Captcha!"); drawCaptcha(); return; }
-    
-    function clean(s) { return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/Đ/g, "D").toUpperCase(); }
-    
-    if (clean(uCode).includes(taskData.correctCode)) {
-        // HIỆU ỨNG: Phản hồi ngay lập tức
-        renderResult("Đang khởi tạo...", "...", Date.now() + 1800000);
+    function confirmTask() {
+        const uCap = document.getElementById('captcha-input').value.trim().toUpperCase();
+        const uCode = document.getElementById('code-input').value.trim().toUpperCase();
+        if (uCap !== captchaVal) { alert("Sai Captcha!"); drawCaptcha(); return; }
         
-        // Gọi API lưu dữ liệu (ID sẽ tự tăng vĩnh viễn ở Server)
-        axios.get(`${API}?action=saveAcc&id=${myId}`).then(res => {
-            document.getElementById('out-acc').innerText = res.data.acc;
-            document.getElementById('out-pass').innerText = res.data.pass;
-        }).catch(err => {
-            alert("Lỗi lưu trữ, hãy thử lại!");
-        });
-    } else {
-        alert("Sai mã sản phẩm!");
+        const clean = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/Đ/g, "D").toUpperCase();
+        
+        if (clean(uCode).includes(taskData.correctCode)) {
+            renderResult("Đang tạo...", "...", Date.now() + 1800000);
+            axios.get(`${API}?action=saveAcc&id=${myId}`).then(res => {
+                document.getElementById('out-acc').innerText = res.data.acc;
+                document.getElementById('out-pass').innerText = res.data.pass;
+            });
+        } else { alert("Mã sản phẩm không đúng!"); }
     }
-}
 
     function renderResult(acc, pass, exp) {
         document.getElementById('ui-start').classList.add('hidden');
@@ -150,7 +142,7 @@ function confirmTask() {
 
     function copyInfo() {
         const text = `Acc: ${document.getElementById('out-acc').innerText} | Pass: ${document.getElementById('out-pass').innerText}`;
-        navigator.clipboard.writeText(text); alert("Đã copy!");
+        navigator.clipboard.writeText(text).then(() => alert("✅ Đã sao chép tài khoản!"));
     }
 </script>
 </body>
